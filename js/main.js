@@ -7,6 +7,7 @@
 	var resize = window.resize,
 		main_view = resize.main_view,
 		custom_view = resize.custom_view,
+		custom_size_view = resize.custom_size_view,
 		util = resize.util,
 		layout = resize.layout,
 		options = resize.options,
@@ -47,6 +48,10 @@
 		evt.stopPropagation();
 		custom_view.showCustomMenu();
 		sendTracking('custom-layout','open');
+	}).on('click','#custom-size',function(evt){
+		evt.stopPropagation();
+		custom_size_view.showCustomMenu();
+		//sendTracking('custom-size','open');
 	}).on('click','#default-configuration',function(evt){
 		evt.stopPropagation();
 		options.showConfirmationModal();
@@ -67,6 +72,21 @@
 	}).on('click','#input-save',function(){
 		custom_view.handleCustomSave();
 		sendTracking('custom-layout','apply');
+	}).on('click','#custom-save',function(){
+		custom_size_view.handleCustomSave();
+		//sendTracking('custom-size','apply');
+	}).on('click','#custom-cancel',function(){
+		if(!$('.custom-size-view').hasClass('hidden')){
+			custom_size_view.clearCustomValues();
+			custom_size_view.hideCustomMenu();
+			//sendTracking('custom-size','cancel');
+		}
+	}).on('keyup','#sizeWidth, #sizeHeight',function(evt){
+		var sizeWidth = Number($('#sizeWidth').attr('value'));
+		var sizeHeight = Number($('#sizeHeight').attr('value'));
+		if(sizeWidth && sizeWidth > 0 && sizeHeight && sizeHeight > 0){
+			$('#custom-save').removeClass('disabled');
+		}
 	}).on('click','body',function(){
 		if(!$('.custom-view').hasClass('hidden')){
 			util.clearCanvas();

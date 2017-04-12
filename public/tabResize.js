@@ -52,6 +52,7 @@ if(!deferTracking) {
 		singleTab: false,
 		main_view: {},
 		custom_view: {},
+		custom_size_view: {},
 		options: {},
 		util: {},
 		badgeLimit: 2,
@@ -418,6 +419,73 @@ if(!deferTracking) {
 	}
 
 	window.resize.custom_view = custom_view;
+
+})();
+/*
+* custom_size.js
+* handles custom size menu
+*/
+(function(){
+
+   var resize = window.resize;
+
+   var custom_size = {
+
+      /**
+      * hides custom view menu
+      */
+      hideCustomMenu: function() {
+         $('.custom-size-view').addClass('hidden');
+         $('.main-view').removeClass('inactive');
+      },
+
+      /**
+      * shows custom view menu
+      */
+      showCustomMenu: function() {
+         this.clearCustomValues();
+         $('.layout-option #fixed').trigger('click');
+         $('.main-view').addClass('inactive');
+         $('.custom-size-view').removeClass('hidden').trigger('show');
+         $('.custom-size-view input.row').focus();
+      },
+
+      /**
+      * clears custom row and col values from input fields
+      */
+      clearCustomValues: function(){
+         $('#sizeWidth').val('');
+         $('#sizeHeight').val('');
+         $('#posX').val('0');
+         $('#posY').val('0');
+         $('#custom-save-view').addClass('disabled');
+      },
+
+      /**
+      * performs save of new layout
+      */
+      handleCustomSave: function(){
+         var layoutType,
+             sizeWidth = $('#sizeWidth').val(),
+             sizeHeight = $('#sizeHeight').val(),
+             posX = $('posY').val(),
+             posY = $('posX').val();
+
+         this.clearCustomValues();
+
+         if(!Number(sizeWidth) || !Number(sizeHeight) || Number(sizeWidth) < 1 || Number(sizeHeight) < 1){
+            //window.alert('Please enter valid input values.');
+         } else {
+            layoutType = sizeWidth + 'x' + sizeHeight + "px" + posX + "-" + posY;
+            resize.layout.addLayout(layoutType);
+            resize.layout.processTabInfo($('.layout-' + layoutType));
+            this.hideCustomMenu();
+         }
+      }
+
+   };
+
+   window.resize.custom_size_view = custom_size;
 
 })();
 /*
@@ -1034,6 +1102,7 @@ if(!deferTracking) {
 	var resize = window.resize,
 		main_view = resize.main_view,
 		custom_view = resize.custom_view,
+		custom_size_view = resize.custom_size_view,
 		util = resize.util,
 		layout = resize.layout,
 		options = resize.options,
@@ -1074,6 +1143,10 @@ if(!deferTracking) {
 		evt.stopPropagation();
 		custom_view.showCustomMenu();
 		sendTracking('custom-layout','open');
+	}).on('click','#custom-size',function(evt){
+		evt.stopPropagation();
+		custom_size_view.showCustomMenu();
+		//sendTracking('custom-size','open');
 	}).on('click','#default-configuration',function(evt){
 		evt.stopPropagation();
 		options.showConfirmationModal();
@@ -1094,6 +1167,21 @@ if(!deferTracking) {
 	}).on('click','#input-save',function(){
 		custom_view.handleCustomSave();
 		sendTracking('custom-layout','apply');
+	}).on('click','#custom-save',function(){
+		custom_size_view.handleCustomSave();
+		//sendTracking('custom-size','apply');
+	}).on('click','#custom-cancel',function(){
+		if(!$('.custom-size-view').hasClass('hidden')){
+			custom_size_view.clearCustomValues();
+			custom_size_view.hideCustomMenu();
+			//sendTracking('custom-size','cancel');
+		}
+	}).on('keyup','#sizeWidth, #sizeHeight',function(evt){
+		var sizeWidth = Number($('#sizeWidth').attr('value'));
+		var sizeHeight = Number($('#sizeHeight').attr('value'));
+		if(sizeWidth && sizeWidth > 0 && sizeHeight && sizeHeight > 0){
+			$('#custom-save').removeClass('disabled');
+		}
 	}).on('click','body',function(){
 		if(!$('.custom-view').hasClass('hidden')){
 			util.clearCanvas();

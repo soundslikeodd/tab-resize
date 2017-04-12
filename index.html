@@ -22,6 +22,9 @@
 					<button class="resize-undo primary" id="custom-layout" type="button" title="Create new custom layout">
 						<span class="glyphicon glyphicon-plus"></span>
 					</button>
+					<button class="resize-undo primary" id="custom-size" type="button" title="Create new custom size">
+						<span class="glyphicon glyphicon-modal-window"></span>
+					</button>
 					<button class="resize-undo secondary" id="default-configuration" type="button" title="Reset to default layouts">
 						<span class="glyphicon glyphicon-refresh"></span>
 					</button>
@@ -108,6 +111,36 @@
 				</div>
 				<button class="button primary disabled" id="input-save">Save</button>
 				<button class="button" id="input-cancel">Cancel</button>
+			</div>
+		</div>
+		<div class="custom-size-view modal-box hidden">
+			<div class="modal-body">
+				<div class="input-container">
+					<div class="input-container left">
+						<div class="label-container">
+							<label>x position:</label>
+							<input type="text" class="custom-value" id="posX" maxlength='4'>
+						</div>
+						<div class="label-container">
+							<label>y position:</label>
+							<input type="text" class="custom-value" id="posY" maxlength='4'>
+						</div>
+					</div>
+					<div class="input-container right">
+						<div class="label-container">
+							<label>width:</label>
+							<input type="text" class="custom-value" id="sizeWidth" maxlength='5'>
+						</div>
+						<div class="label-container">
+							<label>height:</label>
+							<input type="text" class="custom-value" id="sizeHeight" maxlength='5'>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class = "input-container-footer modal-footer">
+				<button class="button primary disabled" id="custom-save">Save</button>
+				<button class="button" id="custom-cancel">Cancel</button>
 			</div>
 		</div>
 		<div class="confirmation-modal modal-box hidden">

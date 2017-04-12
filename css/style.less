@@ -77,6 +77,14 @@ a {
 		}
 	}
 
+	&.glyphicon-modal-window {
+		top: -3px;
+		&:before {
+			content:"\e237";
+			box-sizing: border-box;
+		}
+	}
+
 	&.glyphicon-chevron-down {
 		&:before {
 			content: "\e114";
@@ -408,7 +416,12 @@ button.disabled {
 			margin-left: 12px;
 		}
 
-		#custom-layout{
+		#custom-layout {
+			padding: 4px 15px 1px 15px;
+			float: left;
+		}
+
+		#custom-size {
 			padding: 4px 15px 1px 15px;
 			float: left;
 		}
@@ -550,6 +563,65 @@ button.disabled {
 			position: relative;
 			top: 10px;
 			left: 10px;
+		}
+	}
+}
+
+.custom-size-view {
+
+	.modal-body, .modal-footer {
+		position: relative;
+	}
+
+	.table-container {
+		display: inline-block;
+		position: relative;
+		width: 145px;
+		height: 145px;
+		left: 15px;
+
+	}
+
+	.left {
+		float: left;
+	}
+
+	.right {
+		float: left;
+		padding-left: 8px;
+	}
+
+	.input-container {
+		display: inline-block;
+		position: relative;
+		top: 15px;
+		left: 7px;
+
+		.label-container {
+			margin-bottom: 10px;
+			overflow: hidden;
+
+			label {
+				height: 26px;
+				float: left;
+				margin-right: 11px;
+				line-height: 26px;
+			}
+
+			.custom-value {
+				float: right;
+				text-align: center;
+				border-radius: 2px;
+				border: 1px solid #7C7C7C;
+				width: 90px;
+				outline: none;
+				padding: 4px;
+
+				&:focus {
+					border: 1px solid #599EFF;
+					box-shadow: #599EFF 0px 0px 2px 1px inset;
+				}
+			}
 		}
 	}
 }

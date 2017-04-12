@@ -26,6 +26,7 @@
 		singleTab: false,
 		main_view: {},
 		custom_view: {},
+		custom_size_view: {},
 		options: {},
 		util: {},
 		badgeLimit: 2,
